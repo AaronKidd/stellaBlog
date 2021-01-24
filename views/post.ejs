@@ -1,3 +1,13 @@
 <%- include("partials/header"); -%>
-
+<div class="postcontainer">
+    <div class="postcontent">
+        <h1> <%= title %></h1>
+        <br>
+        <p>Posted: <%= dateposted %></p>
+        <% var i;%>
+        <% for (i = 0; i < post.length; i++) { %>
+        <p><%= post[i] %></p>
+        <% } %>
+    </div>
+</div>
 <%- include("partials/footer"); -%>

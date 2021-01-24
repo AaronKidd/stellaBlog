@@ -1,3 +1,25 @@
 <%- include("partials/header"); -%>
-
+<script>
+  $(function() {
+  $("#addMore").click(function(e) {
+    e.preventDefault();
+    $("#lastone").after("<textarea id='listed' class='form-control addsection' name='postBody' rows='5'></textarea>");
+  });
+});
+</script>
+<div class="composecontent">
+<h1>Compose</h1>
+    <form id="postlist" class="" action="/compose" method="post">
+      <div class="form-group">
+        <label>Title</label>
+        <input class="form-control" type="text" name="postTitle" autocomplete="off">
+        <label>Post</label>
+        <textarea class="form-control" id="lastone" name="postBody" rows="5"></textarea>
+      </div>
+      <div class="submitbutton">
+      <button class="btn btn-lg btn-success publishbutton" id="addMore">Add section</button>
+      <button class="btn btn-lg btn-primary publishbutton" type="submit" name="button">Publish</button>
+    </div>
+    </form>
+</div>
 <%- include("partials/footer"); -%>
