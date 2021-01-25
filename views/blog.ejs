@@ -5,12 +5,12 @@
 
 
             <% posts.forEach(post => { %>
-            <a class="zoomsm " href="/posts/<%= post.title %>">
+            <a class="zoomsm " href="/posts/<%=post._id%>">
                 <div class="col">
                     <div class="card h-100">
                         <div class="card-body">
                             <h5 class="card-title"><%= post.title %></h5>
-                            <p class="card-text"><%= post.post[0].substring(0,100)+('...')%></p>
+                            <p class="card-text"><%= post.content[0].substring(0,100)+('...')%></p>
                         </div>
                         <div class="card-footer">
                             <small class="text-muted">Posted: <%= post.dateposted%></small>

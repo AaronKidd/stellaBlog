@@ -3,10 +3,29 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const app = express();
 const _ = require('lodash');
+const mongoose = require('mongoose')
+var password = require('./hidden');
 
-const {
-  forEach
-} = require("lodash");
+
+mongoose.connect("mongodb+srv://admin-Aaron:"+ password.password  +"@cluster0.nnmqz.mongodb.net/stellaDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+
+//schema
+const postSchema = new mongoose.Schema({
+  title: {
+    type: String,
+  },
+  dateposted: {
+    type: String,
+  },
+  content: mongoose.Schema.Types.Mixed
+})
+
+
+//model
+const Post = mongoose.model("Post", postSchema);
 
 
 
@@ -17,21 +36,25 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(express.static("public"));
 
-const posts =[]
-
 
 
 app.get("/", function (req, res) {
-  res.render("home", {
-  });
+  res.render("home", {});
 });
 
 
 
 app.get("/blog", function (req, res) {
-  res.render("blog", {
-    posts: posts
-  });
+  Post.find((err, results) => {
+    if (err) {
+      console.log(err)
+    } else {
+      res.render("blog", {
+        posts: results
+      });
+    }
+
+  })
 });
 
 
@@ -45,44 +68,45 @@ app.get("/compose", function (req, res) {
 var today = new Date();
 var dd = today.getDate();
 
-var mm = today.getMonth()+1; 
+var mm = today.getMonth() + 1;
 var yyyy = today.getFullYear();
-if(dd<10) 
-{
-    dd='0'+dd;
-} 
+if (dd < 10) {
+  dd = '0' + dd;
+}
 
-if(mm<10) 
-{
-    mm='0'+mm;
-} 
+if (mm < 10) {
+  mm = '0' + mm;
+}
 
-today = dd+'/'+mm+'/'+yyyy;
+today = dd + '/' + mm + '/' + yyyy;
 
 app.post("/compose", function (req, res) {
-  const post = {
+  const post = new Post({
     title: req.body.postTitle,
     dateposted: today,
-    post: req.body.postBody
-  }
-  posts.push(post)
+    content: req.body.postBody
+  })
+  post.save();
+
   res.redirect("/blog")
 });
 
 
-app.get('/posts/:postname', (req, res) => {
-  const searchedTitle = req.params.postname
-  posts.forEach(post => {
-    if (_.lowerCase(post.title) === _.lowerCase(searchedTitle)) {
+app.get('/posts/:postId', (req, res) => {
+  const requestedid = req.params.postId
+  Post.findOne({
+    _id: requestedid
+  }, (err, post) => {
+    if (err) {
+      console.log(err)
+    } else {
       res.render('post', {
         title: post.title,
         dateposted: post.dateposted,
-        post: post.post
+        content: post.content
       });
-    
     }
-  });
-    
+  })
 })
 
 
@@ -104,4 +128,3 @@ app.get("/about", function (req, res) {
 app.listen(3000, function () {
   console.log("Server started on port 3000");
 });
-
