@@ -3,10 +3,10 @@
     <div class="postcontent">
         <h1> <%= title %></h1>
         <br>
-        <p>Posted: <%= dateposted %></p>
+        <p class="dateposted">Posted: <%= dateposted %></p>
         <% var i;%>
         <% for (i = 0; i < content.length; i++) { %>
-        <p><%= content[i] %></p>
+        <p class="blogcontentpost"><%= content[i] %></p>
         <% } %>
     </div>
 </div>

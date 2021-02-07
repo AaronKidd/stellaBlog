@@ -1,16 +1,18 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const app = express();
 const _ = require('lodash');
 const mongoose = require('mongoose')
-var password = require('./hidden');
 
 
-mongoose.connect("mongodb+srv://admin-Aaron:"+ password.password  +"@cluster0.nnmqz.mongodb.net/stellaDB", {
+mongoose.connect(process.env.SECRET, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
+
 
 //schema
 const postSchema = new mongoose.Schema({
@@ -35,6 +37,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(express.static("public"));
+
 
 
 

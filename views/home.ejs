@@ -8,41 +8,48 @@
         });
     });
 
+    $(document).ready(function () {
+        $("#icon2").click(function () {
+            $('html, body').animate({
+                scrollTop: $("body").offset().top
+            }, 10);
+        });
+    });
 </script>
 
-<img class="homeimage fade-in"
-    src="https://github.com/AaronKidd/images/blob/Master/Homepageimage.jpg?raw=true">
+<img class="homeimagedesktop fade-in" src="https://github.com/AaronKidd/images/blob/Master/Homepageimage.jpg?raw=true">
+<img class="homeimagemobile fade-in" src="https://github.com/AaronKidd/images/blob/Master/background.jpg?raw=true">
+
 <div class="content">
     <br>
     <div class="topbanner">
-    <h1 class="fade-in homeTitle">Legal Thoughts</h1>
-    <div class="fade-in contenticon wrapper">
-        <i id="icon" class="bounce_button fas fa-4x fa-chevron-circle-down"></i>
-    </div></div>
+        <h1 class="fade-in homeTitle">Legal Thoughts</h1>
+        <div class="fade-in contenticon wrapper">
+            <i id="icon" class="bounce_button fas fa-4x fa-chevron-circle-down"></i>
+        </div>
+    </div>
     <br>
-    <div class="Logo" id="textbody">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac tincidunt elit. Integer in tortor elit.
-            Suspendisse sodales non nibh sed viverra. Ut at diam sem. Vivamus scelerisque odio ex, eu ultrices sapien
-            hendrerit at. Quisque in tellus id risus malesuada malesuada. Donec feugiat vel risus in commodo. Aliquam
-            magna
-            mauris, tempus ut venenatis molestie, fermentum a erat. Nunc id justo vulputate, luctus diam sit amet,
-            porttitor
-            metus. Fusce id massa ac ipsum tincidunt sollicitudin at eget eros.</p>
-
-        <p> Quisque arcu massa, ultrices vitae nulla non, semper sagittis enim. Nam sed tortor sit amet libero porttitor
-            luctus eu vitae enim. Sed scelerisque, sapien sed ornare mollis, felis ipsum interdum elit, vitae vehicula
-            nulla
-            est at nisi. Ut bibendum efficitur risus a placerat. Pellentesque in condimentum ligula. Quisque vel
-            consectetur
-            leo. Etiam quis porttitor sem. In justo mauris, luctus sed diam nec, volutpat faucibus felis. Vivamus
-            molestie
-            orci magna, vel consequat justo eleifend eget. Nunc consequat laoreet quam ac sagittis. Cras sollicitudin
-            mauris
-            sed commodo varius. In vitae lectus ut mi fringilla consectetur quis ac quam. Pellentesque sollicitudin
-            lectus
-            quis magna convallis consectetur. Pellentesque in vestibulum massa.
-
-        </p>
+    <div class="fade-in" id="textbody">
+        <p>Legal Thoughts is a blog set up to discuss and comment on the legal world, in particular, commercial and
+            corporate law. </p>
+        <p> This blog aims to discuss events which have brought the legal world to where is is now, such as changes to
+            significant legislation, and events which occur in the present world, and how they may impact our future
+            legislation, or even legislative procedures. </p>
+        <p>Legal Thoughts has the intention of keeping up-to-date with the latest news and discussing it’s impact on
+            society and companies. For instance, the impact of mergers and acquisitions on competitors and countries in
+            which the companies operate within, or changes in company structures, such as Jeff Bezos stepping down as
+            CEO of Amazon. </p>
+        <p>These are such a few examples of the topics which I am to discuss in great detail.</p>
+        <p>Perhaps this blog may evolve and expand into more areas in the future. For the time being, Legal Thoughts aim
+            is to enlighten and educate anyone who enjoys expanding their knowledge on the legal and business world.</p>
+    </div>
+    <div class="mobilebtn text-center">
+        <a href="/blog" ><button type="button" href="/blog" class="btn btn-outline-dark btn-xl m-2">Blog</button></a>
+        <a href="/about"><button type="button" href="/about" class="btn btn-outline-dark btn-xl m-2">About</button></a>
+        <a href="/contact"><button type="button" href="/contact" class="btn btn-outline-dark btn-xl m-2">Contact</button></a>
+    </div>
+    <div class="fade-in contenticon wrapper">
+        <i id="icon2" class="bounce_button fas fa-4x fa-chevron-circle-up"></i>
     </div>
 </div>
 
