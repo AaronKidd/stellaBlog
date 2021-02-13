@@ -150,26 +150,6 @@ app.get("/about", function (req, res) {
   res.render("about", {});
 });
 
-app.get("/register", (req, res) => {
-  res.render("register")
-})
-
-app.post("/register", (req, res) => {
-  User.register({
-    username: req.body.username
-  }, req.body.password, (err, user) => {
-    if (err) {
-      console.log(err)
-      res.redirect("/register");
-    } else {
-      passport.authenticate("local")(req, res, () => {
-        res.redirect("/compose")
-      })
-    }
-
-  })
-})
-
 
 app.get("/login", (req, res) => {
   res.render("login")
