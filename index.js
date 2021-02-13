@@ -6,13 +6,32 @@ const ejs = require("ejs");
 const app = express();
 const _ = require('lodash');
 const mongoose = require('mongoose')
+const session = require("express-session");
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
+
+app.set('view engine', 'ejs');
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(express.static("public"));
+
+app.use(session({
+  secret: process.env.PASSPORT,
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 mongoose.connect(process.env.SECRET, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-
+mongoose.set("useCreateIndex", true);
 
 //schema
 const postSchema = new mongoose.Schema({
@@ -23,20 +42,27 @@ const postSchema = new mongoose.Schema({
     type: String,
   },
   content: mongoose.Schema.Types.Mixed
-})
+});
 
+const userSchema = new mongoose.Schema({
+  email: {
+    type: String,
+  },
+  password: {
+    type: String,
+  }
+});
+
+userSchema.plugin(passportLocalMongoose);
 
 //model
 const Post = mongoose.model("Post", postSchema);
 
+const User = mongoose.model("User", userSchema);
 
-
-app.set('view engine', 'ejs');
-
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-app.use(express.static("public"));
+passport.use(User.createStrategy());
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 
@@ -62,10 +88,13 @@ app.get("/blog", function (req, res) {
 
 
 
-
-//blog posts
-app.get("/compose", function (req, res) {
-  res.render("compose", {});
+//blogpost
+app.get("/compose", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("compose");
+  } else {
+    res.redirect("/login")
+  }
 });
 
 var today = new Date();
@@ -121,12 +150,54 @@ app.get("/about", function (req, res) {
   res.render("about", {});
 });
 
+app.get("/register", (req, res) => {
+  res.render("register")
+})
+
+app.post("/register", (req, res) => {
+  User.register({
+    username: req.body.username
+  }, req.body.password, (err, user) => {
+    if (err) {
+      console.log(err)
+      res.redirect("/register");
+    } else {
+      passport.authenticate("local")(req, res, () => {
+        res.redirect("/compose")
+      })
+    }
+
+  })
+})
+
+
+app.get("/login", (req, res) => {
+  res.render("login")
+})
+
+app.post("/login", (req, res) => {
+  const user = new User({
+    username: req.body.username,
+    password: req.body.password
+  })
+
+  req.login(user, (err) => {
+    if (err) {
+      console.log(err)
+    } else {
+      passport.authenticate("local")(req, res, () => {
+        res.redirect("/compose")
+      })
+    }
+  })
+
+})
 
 let port = process.env.PORT;
-if (port == null || port == ""){
+if (port == null || port == "") {
   port = 3000
 }
 
-app.listen( port, function () {
+app.listen(port, function () {
   console.log("Server started");
 });

@@ -2,9 +2,10 @@
     <div class="blogcontent">
 
         <div class="row row-cols-1 row-cols-lg-3 g-4">
+           <% const sortedposts = posts.reverse()%>
 
-
-            <% posts.forEach(post => { %>
+           
+            <% sortedposts.forEach(post => { %>
             <a class="zoomsm cardspace" href="/posts/<%=post._id%>">
                 <div class="col">
                     <div class="card h-100">
