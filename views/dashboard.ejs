@@ -1,0 +1,58 @@
+<%- include("partials/header"); -%>
+<div class="dashcontent">
+
+    <div class="dashbtns">
+        <button type="button" class="btn btn-primary" onclick="editPost()">Edit a Post</button>
+        <button type="button" class="btn btn-danger" onclick="deletePost()">Delete a post</button>
+        <a href="/compose"><button type="button" class="btn btn-success">Create a post</button></a>
+    </div>
+ 
+    <div class="editpost">
+        <form id="edit" action="/edit" method="put">
+            <div class="form-group">
+                <label>Please enter post ID to EDIT post</label>
+                <input class="form-control" type="text" name="postTitle" autocomplete="off">
+            </div>
+            <div class="submitbutton">
+                <button class="btn btn-lg btn-primary publishbutton" type="submit" name="button">Continue</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="deletepost">
+        <form id="delete" action="/dashboard" method="put">
+            <div class="form-group">
+                <label>Please enter post ID to DELETE post</label>
+                <input class="form-control" type="text" name="postTitle" autocomplete="off">
+            </div>
+            <div class="submitbutton">
+                <button class="btn btn-lg btn-danger publishbutton" type="submit" name="button">delete post</button>
+            </div>
+        </form>
+    </div>
+
+    
+
+
+
+</div>
+<script>
+ function editPost() {
+    var x = document.getElementById("edit");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+  function deletePost() {
+    var x = document.getElementById("delete");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+  }
+</script>
+
+<%- include("partials/footer"); -%>

@@ -12,6 +12,25 @@
 		font-family: 'Montserrat', sans-serif;
 	}
 
+	/* dashboard */
+
+	.dashbtns{
+		margin-top: 30vh;
+		margin-left: 40vw;
+		display: block;
+	}
+
+	.dashcontent{
+		padding: 5vw
+	}
+
+	#edit{
+		display: none;
+	}
+
+	#delete{
+		display: none;
+	}
 	/* header */
 	nav {
 		width: 100%;
@@ -411,7 +430,7 @@
 	}
 
 	.blogcontentpost {
-		padding-top: 1.5vw;
+		padding-top: 1vw;
 	}
 
 	.come-in {

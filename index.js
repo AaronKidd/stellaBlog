@@ -12,6 +12,8 @@ const passportLocalMongoose = require("passport-local-mongoose");
 
 app.set('view engine', 'ejs');
 
+
+
 app.use(bodyParser.urlencoded({
   extended: true
 }));
@@ -141,6 +143,11 @@ app.get('/posts/:postId', (req, res) => {
   })
 })
 
+app.get("/dashboard", function (req, res) {
+  res.render("dashboard", {
+    
+  });
+});
 
 app.get("/contact", function (req, res) {
   res.render("contact", {});
