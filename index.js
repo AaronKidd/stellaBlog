@@ -159,43 +159,57 @@ app.get('/posts/:postId', (req, res) => {
 })
 
 app.get('/postadmin/:postId', (req, res) => {
-  const requestedid = req.params.postId
-  Post.findOne({
-    _id: requestedid
-  }, (err, post) => {
-    if (err) {
-      console.log(err)
-    } else {
-      res.render('postAdmin', {
-        title: post.title,
-        dateposted: post.dateposted,
-        content: post.content
-      });
-    }
-  })
+  if (req.isAuthenticated()) {
+    const requestedid = req.params.postId
+    Post.findOne({
+      _id: requestedid
+    }, (err, post) => {
+      if (err) {
+        console.log(err)
+      } else {
+        res.render('postAdmin', {
+          title: post.title,
+          dateposted: post.dateposted,
+          content: post.content
+        });
+      }
+    })
+  } else {
+    res.redirect("/login")
+  }
+
+
 })
 
 
 app.post("/delete", (req, res) => {
-  const postId = req.body.deletebtn
-  console.log(postId)
+  if (req.isAuthenticated()) {
+    const postId = req.body.deletebtn
+    console.log(postId)
 
-  Post.deleteOne({
-    _id: postId
-  }, (err) => {
-    if (err) {
-      console.log(err)
-    } else {
-      console.log("post deleted")
-      res.redirect("/admin")
-    }
-  })
+    Post.deleteOne({
+      _id: postId
+    }, (err) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log("post deleted")
+        res.redirect("/admin")
+      }
+    })
+  } else {
+    res.redirect("/login")
+  }
+
+
 })
 
 app.get("/dashboard", function (req, res) {
-  res.render("dashboard", {
-
-  });
+  if (req.isAuthenticated()) {
+    res.render("dashboard");
+  } else {
+    res.redirect("/login")
+  }
 });
 
 app.get("/contact", function (req, res) {
