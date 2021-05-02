@@ -1,0 +1,57 @@
+<%- include("partials/header"); -%>
+<div class="blogcontent">
+
+    <p>Hi Stella! Select the post you wish to alter/delete</p>
+
+    <div class="row row-cols-1 row-cols-lg-3 g-4">
+        <% const sortedposts = posts.reverse()%>
+
+
+        <% sortedposts.forEach(post => { %>
+        <div class="col">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title"><%= post.title %></h5>
+                    <p class="card-text"><%= post.content[0].substring(0,100)+('...')%></p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted">Posted: <%= post.dateposted%></small>
+                    <a class="zoomsm cardspace" href="/postadmin/<%=post._id%>"><button
+                            class="btn btn-success">Edit</button></a>
+
+                    <form id="postlist" action="/delete" method="post">
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#deletePost">Delete</button>
+
+                        <div class="modal fade" id="deletePost" tabindex="-1" aria-labelledby="deletePostLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deletePostLabel">Are you sure you wish to delete
+                                            this post?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Once you select delete its gone forever
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ive
+                                            changed my mind</button>
+                                        <button class="btn btn-lg btn-danger" name="deletebtn"
+                                            value="<%= post.id %>">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <% }); %>
+
+
+    </div>
+</div>
+<%- include("partials/footer"); -%>
