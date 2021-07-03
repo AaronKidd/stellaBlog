@@ -168,6 +168,7 @@ app.get('/postadmin/:postId', (req, res) => {
         console.log(err)
       } else {
         res.render('postAdmin', {
+          id: requestedid,
           title: post.title,
           dateposted: post.dateposted,
           content: post.content
@@ -181,7 +182,6 @@ app.get('/postadmin/:postId', (req, res) => {
 
 })
 
-
 app.post("/delete", (req, res) => {
   if (req.isAuthenticated()) {
     const postId = req.body.deletebtn
@@ -194,6 +194,29 @@ app.post("/delete", (req, res) => {
         console.log(err)
       } else {
         console.log("post deleted")
+        res.redirect("/admin")
+      }
+    })
+  } else {
+    res.redirect("/login")
+  }
+})
+
+app.post("/update", (req, res) => {
+  if (req.isAuthenticated()) {
+    const postId = req.body.edit
+    const content = req.body.postBody
+    console.log(postId)
+    Post.updateOne({
+      _id: postId
+    }, {
+      content: req.body.postBody
+    }, (err) => {
+      if (err) {
+        console.log(err)
+        console.log("something went wrong")
+      } else {
+        console.log("post edited")
         res.redirect("/admin")
       }
     })
@@ -236,7 +259,7 @@ app.post("/login", (req, res) => {
       console.log(err)
     } else {
       passport.authenticate("local")(req, res, () => {
-        res.redirect("/compose")
+        res.redirect("/dashboard")
       })
     }
   })

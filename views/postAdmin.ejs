@@ -13,7 +13,7 @@
 
 <div class="composecontent">
     <h1>Compose</h1>
-    <form id="postlist" action="/compose" method="delete">
+    <form id="postlist" action="/update" method="post">
         <div class="form-group">
             <label>Title</label>
             <input class="form-control" type="text" name="postTitle" autocomplete="off" value="<%= title %>">
@@ -25,7 +25,8 @@
         </div>
         <div class="submitbutton">
             <button class="btn btn-lg btn-success publishbutton" id="addMore">Add section</button>
-            <button class="btn btn-lg btn-primary publishbutton" type="submit" name="button">finish Edit</button>
+            <button class="btn btn-lg btn-primary publishbutton" type="submit" name="edit" value="<%= id %>">finish
+                Edit</button>
         </div>
     </form>
 </div>
